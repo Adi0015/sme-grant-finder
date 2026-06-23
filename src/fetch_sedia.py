@@ -129,9 +129,23 @@ def normalize(result: dict) -> dict:
     }
 
 
+def dedupe(records: list[dict]) -> list[dict]:
+    """A topic with several deadline cut-offs returns one row per deadline; keep one."""
+    seen: set[str] = set()
+    out: list[dict] = []
+    for r in records:
+        key = r["identifier"]
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(r)
+    return out
+
+
 def main() -> None:
-    results = fetch_open_topics(page_size=20)
-    records = [normalize(r) for r in results]
+    # Over-fetch then dedupe so we still land ~20 DISTINCT open topics.
+    results = fetch_open_topics(page_size=40)
+    records = dedupe([normalize(r) for r in results])[:20]
     OUT.write_text(json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Wrote {len(records)} OPEN topics -> {OUT.relative_to(ROOT)}")
 
