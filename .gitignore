@@ -1,0 +1,13 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Data (large / downloaded)
+data/
+
+# Reference clones (read-only, not part of this repo)
+reference/
+
+# Secrets
+.env
