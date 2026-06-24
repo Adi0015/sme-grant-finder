@@ -1,5 +1,7 @@
 # Python
 venv/
+venv-index/
+.venv*/
 __pycache__/
 *.pyc
 
