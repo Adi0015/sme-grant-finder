@@ -124,3 +124,47 @@ print(result.ranking, result.similarities)
 - **Fetcher**: `src/fetch_sedia.py` → over-fetches, dedupes by `identifier` (multi-deadline topics repeat), writes `data/sedia_sample.json` (20 open topics).
 - **Note**: some Open topics have **past nominal deadlines** — they're continuously/rolling open calls. Status flag is authoritative, not the date.
 - **Reference impl** that pinned the request shape: `github.com/ajruben/sedia-api-fetchers`. A sibling `/facet` endpoint enumerates the status/type/programme code values.
+
+---
+
+## Day 2 — corpora + vector index
+
+Built the full corpora and a persistent multilingual vector store. Code: `src/fetch_sedia.py` (calls), `src/load_cordis.py` (projects), `src/build_index.py` (chunk + embed + index). See [[day2]] for the gate report.
+
+### Final counts
+- `data/calls.json` — **449** distinct OPEN EU grant topics (SEDIA, all open grants paginated to exhaustion).
+- `data/projects.json` — **400** CORDIS Horizon Europe projects (digital/AI/SME slice; **392** involve an SME).
+- Chroma `data/chroma/` (persistent, cosine):
+  - `calls` collection — **1025** chunks
+  - `projects` collection — **457** chunks
+
+### Embedding model — `intfloat/multilingual-e5-base` (why)
+- **Multilingual**: inputs are German SME text + multilingual EU call text. e5-multilingual scores well on MTEB at modest size (~278M params, **768-dim**) vs the heavier `BAAI/bge-m3` (~2.2 GB).
+- **Prefix handling (mandatory for e5)**: passages embedded as `"passage: <text>"`, queries as `"query: <text>"`. Raw text is stored in the Chroma documents (so we cite clean source); the prefix is added only at encode time.
+- Embeddings **L2-normalized** → cosine space (`hnsw:space=cosine`).
+- e5-base hard window = **512 tokens**; chunks stay under it (no silent truncation).
+
+### Chunking params
+- Token-window over the model tokenizer: **480 max tokens, 80 overlap** (under e5's 512 incl. the `passage:` prefix + special tokens).
+- Short CORDIS objectives fall through as a single chunk; long call scope text splits with overlap (449 calls → 1025 chunks ≈ 2.3/call).
+- Body embedded = `title. description` (call scope / project objective). Call **eligibility `conditions`** is kept in `calls.json` but **not indexed** — scope text drives matching; conditions feed Day-3 eligibility drafting.
+
+### Collection schema (Chroma metadata is flat str/int/float/bool only)
+- **Common**: `source_id`, `source_type`, `source_url`, `title`, `chunk_index`, `n_chunks`.
+- **calls**: `identifier`, `programme`, `programme_name`, `programme_period`, `type_of_action`, `status_label`, `deadline`, `deadline_model`, `keywords` (csv).
+- **projects**: `acronym`, `programme`, `topics`, `countries` (csv), `sme_involved` (bool), `relevance_score` (int).
+- Chunk id = `f"{source_id}::{chunk_index}"`; document = raw chunk text (the citation source).
+
+### Block B (clean/normalize) — folded into the loaders
+- SEDIA: strip HTML tags + `html.unescape` + collapse whitespace; dedupe by identifier; drop empty.
+- CORDIS: whitespace-normalize objective; drop stubs (<80 chars); dedupe by id.
+- Every record stamped `source_id` / `source_url` / `source_type`; raw text kept intact (no aggressive truncation).
+
+### Env note ⚠️
+- torch / sentence-transformers / chromadb have **no cp314 wheels** → the Day-1 venv (Python **3.14**) can't run Block C. Built a second venv `venv-index` on **Python 3.13** (torch 2.12.1, sentence-transformers 5.6.0, chromadb 1.5.9, onnxruntime 1.27.0). All Day-2 code runs from it; `venv-index/` is gitignored.
+
+### Corrections to the Day-1 SEDIA field map
+- Description lives in `metadata.descriptionByte[0]` (HTML) — **not** `metadata.description`. `deadlineDate` is an **array** (one entry per cut-off). Programme is an EC id in `frameworkProgramme` + readable `programmePeriod`; readable family derived from the identifier prefix. Type of action = `typesOfAction[0]`.
+
+### Harmless warning
+- `transformers` prints "Token indices sequence length is longer than 512" while the tokenizer length-checks a long doc inside `chunk_text`; the doc is then windowed to ≤480 tokens before embedding. Expected, not an error.
