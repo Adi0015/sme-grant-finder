@@ -24,31 +24,16 @@ Usage:
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
-import chromadb
-from sentence_transformers import SentenceTransformer
+import config
+from config import (
+    CALLS_JSON, PROJECTS_JSON, CHROMA_DIR, MODEL_NAME, ROOT,
+    CHUNK_MAX_TOKENS, CHUNK_OVERLAP_TOKENS,
+    COLLECTION_CALLS, COLLECTION_PROJECTS, DISTANCE,
+)
 
-# ── Config ────────────────────────────────────────────────────────────────────
-ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / "data"
-CALLS_JSON = DATA / "calls.json"
-PROJECTS_JSON = DATA / "projects.json"
-CHROMA_DIR = DATA / "chroma"
-
-MODEL_NAME = "intfloat/multilingual-e5-base"
-PASSAGE_PREFIX = "passage: "   # e5: index side
-QUERY_PREFIX = "query: "       # e5: query side
-EMBED_BATCH = 64
-
-# e5-base max sequence length is 512 tokens; stay under it (leave room for the
-# "passage: " prefix + special tokens) so nothing is silently truncated.
-CHUNK_MAX_TOKENS = 480
-CHUNK_OVERLAP_TOKENS = 80
-
-COLLECTION_CALLS = "calls"
-COLLECTION_PROJECTS = "projects"
-DISTANCE = "cosine"            # hnsw:space; pairs with normalized embeddings
+# Embedding model, e5 prefixes, chunk params, paths + collection names now live in
+# config.py (shared with retrieve.py). This file owns chunking + index assembly.
 
 TEST_SME = "A German SME developing AI-based predictive maintenance for manufacturing"
 
@@ -149,14 +134,8 @@ def build_collection(client, model, name: str, records: list[dict],
         print(f"  [{name}] no chunks — skipped")
         return 0
 
-    # e5 passage prefix only at encode time; documents stay raw.
-    embeddings = model.encode(
-        [PASSAGE_PREFIX + d for d in docs],
-        batch_size=EMBED_BATCH,
-        normalize_embeddings=True,
-        convert_to_numpy=True,
-        show_progress_bar=True,
-    ).tolist()
+    # e5 passage prefix + L2-normalize handled centrally; documents stay raw.
+    embeddings = config.embed_passages(docs).tolist()
 
     # Idempotent: drop & recreate so re-runs don't duplicate.
     try:
@@ -172,8 +151,7 @@ def build_collection(client, model, name: str, records: list[dict],
 # ── Block D: sanity smoke test (NOT the Day-3 retrieval module) ────────────────
 def sanity_check(client, model) -> None:
     print(f"\nSanity query (calls): {TEST_SME!r}")
-    emb = model.encode([QUERY_PREFIX + TEST_SME], normalize_embeddings=True,
-                       convert_to_numpy=True)[0].tolist()
+    emb = config.embed_query(TEST_SME).tolist()
     coll = client.get_collection(COLLECTION_CALLS)
     res = coll.query(query_embeddings=[emb], n_results=5,
                      include=["metadatas", "distances"])
@@ -188,10 +166,10 @@ def main() -> None:
     print(f"Loaded {len(calls)} calls, {len(projects)} projects.")
 
     print(f"Loading embedding model: {MODEL_NAME} ...")
-    model = SentenceTransformer(MODEL_NAME)
+    model = config.load_model()
     print(f"  max_seq_length={model.max_seq_length}, dim={model.get_sentence_embedding_dimension()}")
 
-    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+    client = config.get_client()
     print("Building collections ...")
     n_calls = build_collection(client, model, COLLECTION_CALLS, calls, call_body, call_meta)
     n_proj = build_collection(client, model, COLLECTION_PROJECTS, projects, project_body, project_meta)
