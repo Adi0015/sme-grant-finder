@@ -168,3 +168,32 @@ Built the full corpora and a persistent multilingual vector store. Code: `src/fe
 
 ### Harmless warning
 - `transformers` prints "Token indices sequence length is longer than 512" while the tokenizer length-checks a long doc inside `chunk_text`; the doc is then windowed to ≤480 tokens before embedding. Expected, not an error.
+
+---
+
+## Day 3 — retrieval module
+
+SME profile in → ranked matching calls + supporting evidence out. No LLM, no UI. See [[day3]] for the gate report. Shared config refactored into `src/config.py` (model, e5 prefixes, store, score helper) — `build_index.py` and `retrieve.py` both import it so the two sides can't drift.
+
+### Function signatures
+- `schema.SMEProfile(description, country=None, org_type=None, budget=None, trl=None, keywords=None)` — dataclass.
+  - `.to_query_text() -> str` — description first (dominant), structured fields as a trailing ` | `-joined context line. **No e5 prefix here** — `config.embed_query()` adds `"query: "` once, centrally.
+- `retrieve.retrieve_calls(profile, k=10) -> list[dict]` — keys: `source_id, title, source_url, deadline, programme, type_of_action, best_score, best_chunk_text`.
+- `retrieve.retrieve_evidence(profile, k=5) -> list[dict]` — keys: `source_id, title, source_url, programme, country, score, chunk_text`.
+- `retrieve.retrieve(profile, k_calls=10, k_evidence=5) -> {"query", "matched_calls", "evidence_projects"}` — all JSON-serializable, pure (only reads persisted Chroma).
+- `config.embed_query / embed_passages / load_model / get_client / similarity_from_distance` — shared helpers.
+
+### Dedupe chunks → parents
+- Calls/projects are stored as multiple chunks. Over-fetch `max(k*5, 50)` chunks (Chroma returns them sorted best-first), then keep the **first** chunk seen per `source_id` = that source's best chunk. Rank sources by best chunk score, take top-k. One entry per call/project. Distinct identifiers stay distinct (e.g. two sibling EDF sub-topics with different identifiers are correctly kept separate).
+
+### Score interpretation (higher = better)
+- Collections built with `hnsw:space=cosine` → Chroma `query()` returns a cosine **distance** = `1 - cosine_similarity`. We invert: `similarity = 1 - distance` (`config.similarity_from_distance`). With L2-normalized vectors that's the cosine similarity in [-1, 1]. All `best_score`/`score` fields are this similarity, rounded to 4 dp.
+
+### No hard eligibility filter (deliberate)
+- `profile.country / trl / budget` are **not** used to drop matches. They weight the query text and ride along in the `query` payload for Day-4 assistive eligibility. Eligibility stays assistive, never a hard gate (see [[scope]]).
+
+### Retrieval quality read (from the smoke test)
+- **Top-3 per profile are clearly on-domain.** AI-predictive-maintenance → "Industrial leadership in AI, Data and Robotics" (0.819) + AI security/robustness; evidence = "Resilient manufacturing lines", "AI in Manufacturing" (0.84). Green-energy → "wind energy systems" (0.838) + renewables; evidence = power-distribution / energy-swarm projects. Health-data → rare-diseases partnership, EHR digital health, AI medical image screening, AI uptake in health.
+- **Tails drift into semantic neighbours**: defense AI (EDF) for manufacturing, Ka-band satellite for energy, plant-health for human-health. Pure dense retrieval — expected.
+- **e5 score band is compressed (~0.80–0.84)** — small absolute gaps between great and mediocre matches, so a fixed similarity threshold will be unreliable. A hybrid BM25 + dense re-rank (the cbrkit MAC/FAC pattern) is the Day-5+ lever to sharpen this.
+- Some "Open" calls have **past nominal deadlines** (rolling calls) — surfaced but should be flagged in the UI.
