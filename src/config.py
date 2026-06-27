@@ -79,3 +79,22 @@ def similarity_from_distance(distance: float) -> float:
     collection space is 'cosine'. Invert it so higher = more similar = better.
     With L2-normalized vectors the result is the cosine similarity in [-1, 1]."""
     return 1.0 - float(distance)
+
+
+# ── LLM (Day 4 generation layer) ────────────────────────────────────────────────
+# Backend is swappable by ONE constant. Default is local Ollama (no API key, no
+# paid hosted service). "anthropic" is available but is a PAID hosted API — only
+# selected deliberately, never silently. llm.py reads these.
+LLM_BACKEND = "ollama"               # "ollama" | "anthropic"
+
+# Ollama (local server proxies any pulled model; cloud-tagged models need a paid
+# subscription, so prefer a locally pulled model e.g. "qwen2.5:7b", "llama3.1:8b").
+OLLAMA_HOST = "http://localhost:11434"
+OLLAMA_MODEL = "qwen2.5:7b"
+
+# Anthropic (paid hosted API — requires ANTHROPIC_API_KEY in the environment).
+ANTHROPIC_MODEL = "claude-sonnet-4-6"
+
+LLM_TEMPERATURE = 0.0                # deterministic extraction, not creative writing
+LLM_TIMEOUT = 240                    # seconds per call
+MAX_CONDITIONS_CHARS = 4500          # cap the call's conditions text passed to the LLM
