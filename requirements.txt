@@ -1,0 +1,22 @@
+# RAISE — SME grant finder. Pinned for reproducibility.
+# Python 3.13 (torch/chromadb have no 3.14 wheels). Use a 3.13 venv.
+
+# --- retrieval + embeddings (pipeline.run / retrieve / build_index) ---
+sentence-transformers==5.6.0
+transformers==5.12.1
+torch==2.12.1
+chromadb==1.5.9
+numpy==2.5.0
+
+# --- generation backend transport (llm.py talks to Ollama over HTTP) ---
+requests==2.34.2
+
+# --- UI ---
+streamlit==1.58.0
+
+# --- evaluation (eval_retrieval / eval_faithfulness / eval_benchmark) ---
+mlflow==3.14.0
+rank_bm25==0.2.2
+
+# --- data prep (fetch_sedia / load_cordis) ---
+pandas==2.3.3

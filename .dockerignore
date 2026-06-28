@@ -1,0 +1,27 @@
+# Keep the image small + reproducible: exclude big/local/regenerable artifacts.
+venv/
+venv-index/
+.venv*/
+__pycache__/
+*.pyc
+
+# Large local data + index (mount data/ as a volume at runtime instead).
+data/calls.json
+data/projects.json
+data/chroma/
+data/*_demo*.json
+data/*.err
+data/*.log
+data/gold/faith_generated.json
+# NOTE: data/samples/ is intentionally copied in the Dockerfile (demo mode).
+
+# Eval/experiment outputs + reference clones.
+mlruns/
+reference/
+
+# Repo meta not needed in the image.
+.git/
+.gitignore
+notes/
+docs/
+*.md
