@@ -197,3 +197,31 @@ SME profile in → ranked matching calls + supporting evidence out. No LLM, no U
 - **Tails drift into semantic neighbours**: defense AI (EDF) for manufacturing, Ka-band satellite for energy, plant-health for human-health. Pure dense retrieval — expected.
 - **e5 score band is compressed (~0.80–0.84)** — small absolute gaps between great and mediocre matches, so a fixed similarity threshold will be unreliable. A hybrid BM25 + dense re-rank (the cbrkit MAC/FAC pattern) is the Day-5+ lever to sharpen this.
 - Some "Open" calls have **past nominal deadlines** (rolling calls) — surfaced but should be flagged in the UI.
+
+---
+
+## Day 4 — generation (fit + draft eligibility + citations)
+
+`pipeline.run(profile, top_n)` → ranked shortlist; per call `generate_for_call` (src/generate.py).
+- **LLM**: `src/llm.py` swappable backend (`config.LLM_BACKEND`): `ollama` (default, `qwen2.5:7b` — the configured `deepseek-*:cloud` models 403 without a paid sub) / `anthropic` (env key). JSON-mode + parse-retry-once → `{_error,_raw}`.
+- **Per call** the model sees only: SME profile + that call's retrieved scope chunk + its `conditions` text (from calls.json, same source_id) + ≤2 evidence projects. Returns strict JSON: fit_summary, fit_reasons[{claim,source_id,snippet}], eligibility[{condition,stated_in_call,applicant_appears_to_meet,source_id,snippet}], missing_info.
+- **Grounding (the hard rule, in code)**: every snippet is **re-derived to a verbatim source span** — longest contiguous match (`difflib`), require longest-run ≥0.55 + total ≥0.75 of snippet words, replace the model's quote with the exact source substring; fabricated/stitched/post-truncation → dropped. Metadata (deadline/programme/url) taken from retrieval, never the LLM.
+- **Verdict guard**: `applicant_appears_to_meet` enum has **no "no"** (demoted to "unclear"); section-pointer snippets forced to "unclear"; verdict phrasing stripped from fit_summary. Never says (in)eligible.
+- **Failure mode found** (adversarial 21-agent audit): the original 0.80 fuzzy matcher hid 5 fabricated fit quotes by snapping them to adjacent text + let one wrong "no" verdict through. Re-derivation + verdict demotion fixed it; v2 = 5/5 fit + 22/22 elig exact substrings, 0 "no". See [[day4]] note (gate) and [[Gotchas]] in the vault.
+
+## Day 5 — evaluation harness
+
+Human-labeled gold set + retrieval metrics + faithfulness + MLflow. See [[day5]], [[results]].
+- **Gold (integrity rule)**: `src/build_gold.py` → 10 SME profiles (`data/gold/profiles.json`) → dense top-20 candidate pool → `to_label.csv` (200 rows, `relevant` blank). **Human labels it; no LLM-filled labels.** Frozen `candidates.json` so labels map to the shown ranking.
+- **Retrieval** (`eval_retrieval.py`): recall@{5,10,20}, MRR, precision@5 — pool-relative (recall@20≈1.0 by construction; MRR/recall@5,10 are the signal). PENDING labels.
+- **Faithfulness** (`eval_faithfulness.py`): code-grounding **98.1%** (53/54; 1 tokenizer-roundtrip artifact) + LLM-judge **44% yes / 85% yes+partial** over 54 claims. Spot-check CSV emitted; judge shares qwen → human check needed.
+- **Benchmark** (`eval_benchmark.py`): dense vs hybrid (BM25+RRF) re-rank of the pool → MLflow (`./mlruns`, needs `MLFLOW_ALLOW_FILE_STORE=true` on MLflow 3). PENDING labels.
+
+## Day 6 — UI + README + writeup + reproducibility
+
+Shipped (thin shell, no pipeline refactor):
+- **`app.py`** — single-page Streamlit over `pipeline.run()`. Inputs → SMEProfile; "Find calls" → top-5 cards: title/deadline/programme, fit_summary, **expandable citations (source link + verbatim snippet) on every fit & eligibility line**, "to verify" from missing_info. Disclaimer banner. **Demo mode** (`?demo=1` or sidebar button) renders a cached shortlist (`data/samples/demo_shortlist.json`) with **no LLM/index** — for first-look + screenshots + Ollama-less users. Verified: serves HTTP 200, demo data shape matches renderer.
+- **Repro**: `requirements.txt` (pinned, py3.13), `Dockerfile` (+ `.dockerignore`; mounts `data/`, `OLLAMA_HOST=host.docker.internal`), `Makefile` (setup/build-index/run-app/demo/gold/run-eval/benchmark/docker-*). `OLLAMA_HOST`/`OLLAMA_MODEL` now env-overridable in config.py.
+- **Docs**: `README.md` (2-min: pitch + ASCII UI mock, problem, mermaid architecture, data counts, design choices, results, RAISE relation, limitations, run local+Docker), `notes/writeup.md` (~450w, builder's voice).
+- **Ships in repo**: `data/samples/` (3 calls + 3 projects + demo shortlist), `data/gold/`. Gitignored: large corpora, chroma, mlruns, venvs.
+- **Not verified**: Docker build (no docker on this machine) — Dockerfile written + documented. No real screenshot (no Chromium for headless; full-screen capture would leak desktop) — ASCII mock used; drop PNG at `docs/screenshot.png`.
