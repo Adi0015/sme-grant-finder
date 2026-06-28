@@ -1,0 +1,82 @@
+[
+  {
+    "id": "p01-ai-manufacturing",
+    "description": "A German SME developing AI-based predictive maintenance software for manufacturing lines. We use machine learning on sensor and vibration data to forecast equipment failures and reduce unplanned downtime.",
+    "country": "DE",
+    "org_type": "SME",
+    "trl": 6,
+    "keywords": ["predictive maintenance", "machine learning", "industry 4.0", "sensors", "manufacturing"]
+  },
+  {
+    "id": "p02-green-energy",
+    "description": "A Danish green-energy startup building offshore wind turbine optimisation and smart-grid integration software to increase renewable energy efficiency and grid stability.",
+    "country": "DK",
+    "org_type": "startup",
+    "trl": 5,
+    "keywords": ["wind energy", "smart grid", "renewables", "energy storage", "grid balancing"]
+  },
+  {
+    "id": "p03-health-data",
+    "description": "A French health-data startup applying NLP and federated learning to clinical records to support earlier diagnosis while preserving patient privacy across hospitals.",
+    "country": "FR",
+    "org_type": "startup",
+    "trl": 4,
+    "keywords": ["health data", "NLP", "federated learning", "privacy", "clinical decision support"]
+  },
+  {
+    "id": "p04-agritech",
+    "description": "A Spanish agri-tech SME building precision-farming tools that combine drone imagery and machine learning to optimise irrigation, detect crop disease, and cut fertiliser use.",
+    "country": "ES",
+    "org_type": "SME",
+    "trl": 6,
+    "keywords": ["precision agriculture", "remote sensing", "crop monitoring", "drones", "sustainable farming"]
+  },
+  {
+    "id": "p05-logistics",
+    "description": "A Dutch logistics SME developing AI route-optimisation and warehouse automation software to reduce delivery emissions and improve supply-chain resilience.",
+    "country": "NL",
+    "org_type": "SME",
+    "trl": 7,
+    "keywords": ["logistics", "supply chain", "route optimisation", "warehouse automation", "freight"]
+  },
+  {
+    "id": "p06-cybersecurity-iot",
+    "description": "An Italian cybersecurity SME building anomaly-detection and threat-intelligence tooling for industrial IoT devices and critical infrastructure networks.",
+    "country": "IT",
+    "org_type": "SME",
+    "trl": 5,
+    "keywords": ["cybersecurity", "IoT security", "threat detection", "critical infrastructure", "anomaly detection"]
+  },
+  {
+    "id": "p07-fintech-regtech",
+    "description": "An Irish fintech startup using machine learning for real-time fraud detection and anti-money-laundering compliance for payment providers.",
+    "country": "IE",
+    "org_type": "startup",
+    "trl": 6,
+    "keywords": ["fintech", "regtech", "fraud detection", "anti-money-laundering", "payments"]
+  },
+  {
+    "id": "p08-space-eo",
+    "description": "A Luxembourg space-tech SME turning satellite earth-observation data into analytics for environmental monitoring, methane-leak detection, and land-use change.",
+    "country": "LU",
+    "org_type": "SME",
+    "trl": 5,
+    "keywords": ["earth observation", "satellite data", "remote sensing", "environmental monitoring", "geospatial"]
+  },
+  {
+    "id": "p09-circular-economy",
+    "description": "A Swedish circular-economy SME building robotic sorting and AI material-recognition systems to increase recycling rates for plastics and electronic waste.",
+    "country": "SE",
+    "org_type": "SME",
+    "trl": 4,
+    "keywords": ["circular economy", "recycling", "robotics", "material recognition", "waste sorting"]
+  },
+  {
+    "id": "p10-emobility",
+    "description": "A Portuguese e-mobility startup developing smart EV-charging management and battery-health analytics to balance charging load on local grids.",
+    "country": "PT",
+    "org_type": "startup",
+    "trl": 5,
+    "keywords": ["electric vehicles", "EV charging", "battery management", "smart charging", "e-mobility"]
+  }
+]

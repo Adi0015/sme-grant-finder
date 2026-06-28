@@ -5,11 +5,18 @@ venv-index/
 __pycache__/
 *.pyc
 
-# Data (large / downloaded)
-data/
+# Data (large / downloaded) — ignore everything in data/ ...
+data/*
+# ... except the small, precious gold eval set (profiles + human labels + metrics).
+!data/gold/
+# but not its regenerable LLM-generation cache
+data/gold/faith_generated.json
 
 # Reference clones (read-only, not part of this repo)
 reference/
+
+# MLflow local file store (regenerable from eval runs)
+mlruns/
 
 # Secrets
 .env
