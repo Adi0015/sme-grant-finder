@@ -89,8 +89,11 @@ LLM_BACKEND = "ollama"               # "ollama" | "anthropic"
 
 # Ollama (local server proxies any pulled model; cloud-tagged models need a paid
 # subscription, so prefer a locally pulled model e.g. "qwen2.5:7b", "llama3.1:8b").
-OLLAMA_HOST = "http://localhost:11434"
-OLLAMA_MODEL = "qwen2.5:7b"
+# Host/model are env-overridable so a container can point at the host's Ollama
+# (e.g. OLLAMA_HOST=http://host.docker.internal:11434) without code changes.
+import os as _os
+OLLAMA_HOST = _os.environ.get("OLLAMA_HOST", "http://localhost:11434")
+OLLAMA_MODEL = _os.environ.get("OLLAMA_MODEL", "qwen2.5:7b")
 
 # Anthropic (paid hosted API — requires ANTHROPIC_API_KEY in the environment).
 ANTHROPIC_MODEL = "claude-sonnet-4-6"

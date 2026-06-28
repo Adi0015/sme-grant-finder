@@ -1,0 +1,373 @@
+{
+  "query": {
+    "description": "A German SME developing AI-based predictive maintenance software for manufacturing lines. We use machine learning on sensor data to forecast equipment failures and reduce downtime.",
+    "country": "DE",
+    "org_type": "SME",
+    "budget": null,
+    "trl": 6,
+    "keywords": [
+      "predictive maintenance",
+      "machine learning",
+      "industry 4.0",
+      "sensors"
+    ]
+  },
+  "shortlist": [
+    {
+      "source_id": "HORIZON-CL4-2024-DIGITAL-EMERGING-01-04",
+      "title": "Industrial leadership in AI, Data and Robotics boosting competitiveness and the green transition (AI Data and Robotics Partnership) (IA)[[https://www.europarl.europa.eu/RegData/etudes/STUD/2021/662906/IPOL_STU(2021)662906_EN.pdf]]",
+      "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45704318",
+      "score": 0.8192,
+      "deadline": "2026-07-15T17:00:00.000+0000",
+      "programme": "HORIZON",
+      "type_of_action": "",
+      "fit_summary": "The SME's profile appears to align with the call's focus on AI and robotics in manufacturing, but eligibility conditions are not explicitly stated.",
+      "fit_reasons": [
+        {
+          "claim": "The SME is developing AI-based predictive maintenance software for manufacturing lines, which aligns with the call’s focus on AI and Robotics Partnership.",
+          "source_id": "HORIZON-CL4-2024-DIGITAL-EMERGING-01-04",
+          "snippet": "Industrial leadership in AI, Data and Robotics boosting competitiveness and the green transition (AI Data and Robotics Partnership) (IA",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45704318"
+        }
+      ],
+      "eligibility": [],
+      "missing_info": [
+        "country",
+        "org_type",
+        "TRL",
+        "budget",
+        "deadline",
+        "consortium rules",
+        "check the official call documents for eligibility conditions"
+      ],
+      "_grounding": {
+        "dropped_fit": 0,
+        "dropped_eligibility": 1,
+        "warnings": []
+      }
+    },
+    {
+      "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+      "title": "AI-based tactical situational awareness using swarms of small robots and drones – participation in a  technological challenge\"",
+      "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+      "score": 0.818,
+      "deadline": "2026-09-29T00:00:00.000+0000",
+      "programme": "EDF",
+      "type_of_action": "EDF Lump Sum Grants",
+      "fit_summary": "The SME appears to have a profile that aligns with some aspects of the call but lacks clear alignment in key areas.",
+      "fit_reasons": [
+        {
+          "claim": "The SME's focus on predictive maintenance and machine learning could be relevant for the AI-based tactical situational awareness using swarms of small robots and drones, as both involve advanced technologies.",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "snippet": "AI-based tactical situational awareness using swarms of small robots and drones – participation in a  technological challenge",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP"
+        }
+      ],
+      "eligibility": [
+        {
+          "condition": "Admissibility Conditions: Proposal page limit and layout described in section 5 of the call document.",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "snippet": "and layout: described in Part B of the Application Form available in the Submission System"
+        },
+        {
+          "condition": "Eligible Countries described in section 6 of the call document.",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "snippet": "Eligible Countries described in section 6 of the call document"
+        },
+        {
+          "condition": "Other Eligible Conditions described in section 6 of the call document.",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "snippet": "Other Eligible Conditions described in section 6 of the call document"
+        },
+        {
+          "condition": "Financial and operational capacity and exclusion described in section 7 of the call document.",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "snippet": "Financial and operational capacity and exclusion described in section 7 of the call document"
+        },
+        {
+          "condition": "Evaluation and award: Submission and evaluation processes described section 8 of the call document and the Online Manual.",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "snippet": "Evaluation and award: Submission and evaluation processes described section 8 of the call document and the Online Manual"
+        },
+        {
+          "condition": "Evaluation and award: Award criteria, scoring and thresholds described in section 9 of the call document.",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "snippet": "Evaluation and award: Award criteria, scoring and thresholds described in section 9 of the call document"
+        },
+        {
+          "condition": "Evaluation and award: Indicative timeline for evaluation and grant agreement described in section 4 of the call document.",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "snippet": "Evaluation and award: Indicative timeline for evaluation and grant agreement described in section 4 of the call document"
+        },
+        {
+          "condition": "Legal and financial set-up of the grants described in section 10 of the call document.",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+          "snippet": "Legal and financial set-up of the grants described in section 10 of the call document"
+        }
+      ],
+      "missing_info": [
+        "TRL level for the proposed project is not explicitly stated.",
+        "Specific country eligibility criteria are not provided.",
+        "Exact consortium rules or requirements are not detailed."
+      ],
+      "_grounding": {
+        "dropped_fit": 0,
+        "dropped_eligibility": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+      "title": "AI-based tactical situational awareness using swarms of small robots and drones – organisation of a  technological challenge\"",
+      "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+      "score": 0.8147,
+      "deadline": "2026-09-29T00:00:00.000+0000",
+      "programme": "EDF",
+      "type_of_action": "EDF Lump Sum Grants",
+      "fit_summary": "The SME appears to not directly fit this call as it focuses on AI-based tactical situational awareness using swarms of small robots and drones, while the SME's focus is on predictive maintenance software for manufacturing lines.",
+      "fit_reasons": [
+        {
+          "claim": "The SME’s focus on predictive maintenance software does not align with the call’s focus on AI-based tactical situational awareness using swarms of small robots and drones.",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "snippet": "AI-based tactical situational awareness using swarms of small robots and drones – organisation of a  technological challenge",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO"
+        }
+      ],
+      "eligibility": [
+        {
+          "condition": "Admissibility Conditions: Proposal page limit and layout described in section 5 of the call document .",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "snippet": "Proposal page limit and layout described in section 5 of the call document"
+        },
+        {
+          "condition": "Eligible Countries described in section 6 of the call document .",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "snippet": "Eligible Countries described in section 6 of the call document"
+        },
+        {
+          "condition": "Other Eligible Conditions described in section 6 of the call document .",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "snippet": "Other Eligible Conditions described in section 6 of the call document"
+        },
+        {
+          "condition": "Financial and operational capacity and exclusion described in section 7 of the call document .",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "snippet": "Financial and operational capacity and exclusion described in section 7 of the call document"
+        },
+        {
+          "condition": "Evaluation and award: Submission and evaluation processes described section 8 of the call document and the Online Manual .",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "snippet": "Evaluation and award: Submission and evaluation processes described section 8 of the call document and the Online Manual"
+        },
+        {
+          "condition": "Evaluation and award: Award criteria, scoring and thresholds described in section 9 of the call document .",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "snippet": "Evaluation and award: Award criteria, scoring and thresholds described in section 9 of the call document"
+        },
+        {
+          "condition": "Evaluation and award: Indicative timeline for evaluation and grant agreement described in section 4 of the call document .",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "snippet": "Evaluation and award: Indicative timeline for evaluation and grant agreement described in section 4 of the call document"
+        },
+        {
+          "condition": "Legal and financial set-up of the grants described in section 10 of the call document .",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+          "snippet": "Legal and financial set-up of the grants described in section 10 of the call document"
+        }
+      ],
+      "missing_info": [
+        "The specific eligibility criteria for AI-based predictive maintenance software are not stated.",
+        "The exact eligible countries are not specified."
+      ],
+      "_grounding": {
+        "dropped_fit": 0,
+        "dropped_eligibility": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source_id": "HORIZON-CL3-2026-02-CS-ECCC-02",
+      "title": "Enhancing the Security, Privacy and Robustness of AI Models and Systems (SecureAI)",
+      "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-02",
+      "score": 0.8135,
+      "deadline": "2026-09-15T00:00:00.000+0000",
+      "programme": "HORIZON",
+      "type_of_action": "HORIZON Innovation Actions",
+      "fit_summary": "The SME appears to meet some of the general conditions for this call but lacks specific details on eligibility and scope alignment.",
+      "fit_reasons": [
+        {
+          "claim": "The SME's focus on AI-based predictive maintenance aligns with the call’s goal of enhancing robustness in AI systems.",
+          "source_id": "HORIZON-CL3-2026-02-CS-ECCC-02",
+          "snippet": "Expected Outcome: Proposals are expected to contribute to one or more of the following: Robust AI models and systems capable of resisting different classes of adversarial manipulation",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-02"
+        }
+      ],
+      "eligibility": [
+        {
+          "condition": "Legal entity established in a Member State or Associated Country",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "yes",
+          "source_id": "HORIZON-CL3-2026-02-CS-ECCC-02",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-02",
+          "snippet": "participation in this topic is limited to legal entities established in Member States and Associated Countries"
+        },
+        {
+          "condition": "Eligible countries as described in Annex B of the Work Programme General Annexes",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "HORIZON-CL3-2026-02-CS-ECCC-02",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-02",
+          "snippet": "Eligible Countries described in Annex B of the Work Programme General Annexes"
+        },
+        {
+          "condition": "Financial and operational capacity as described in Annex C of the Work Programme General Annexes",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "HORIZON-CL3-2026-02-CS-ECCC-02",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-02",
+          "snippet": "Financial and operational capacity and exclusion described in Annex C of the Work Programme General Annexes"
+        }
+      ],
+      "missing_info": [
+        "Detailed budget table (HE LS)",
+        "Specific topic of the Work Programme"
+      ],
+      "_grounding": {
+        "dropped_fit": 0,
+        "dropped_eligibility": 0,
+        "warnings": []
+      }
+    },
+    {
+      "source_id": "HORIZON-CL3-2026-02-CS-ECCC-01",
+      "title": "Approaches and tools for security in software and hardware development and assessment",
+      "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-01",
+      "score": 0.8131,
+      "deadline": "2026-09-15T00:00:00.000+0000",
+      "programme": "HORIZON",
+      "type_of_action": "HORIZON  Research and Innovation Actions",
+      "fit_summary": "The SME appears to have a relevant profile for this call as it focuses on AI-based predictive maintenance software, which could contribute to secure software development lifecycle methodologies and tools. However, the specific focus of the call is on security in software supply chains rather than predictive maintenance.",
+      "fit_reasons": [
+        {
+          "claim": "The SME's work on predictive maintenance aligns with the broader goals of enhancing secure software frameworks and resilience against cyber threats.",
+          "source_id": "HORIZON-CL3-2026-02-CS-ECCC-01",
+          "snippet": "Exploring new methodologies for integrating security-by-design principles across development workflows, incorporating approaches such as automated security policy enforcement, modular security components, and improved dependency management",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-01"
+        }
+      ],
+      "eligibility": [
+        {
+          "condition": "Legal entity established in a Member State or Associated Country",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "yes",
+          "source_id": "HORIZON-CL3-2026-02-CS-ECCC-01",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-01",
+          "snippet": "participation in this topic is limited to legal entities established in Member States and Associated Countries"
+        },
+        {
+          "condition": "Controlled by a non-eligible country or entity",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "HORIZON-CL3-2026-02-CS-ECCC-01",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-01",
+          "snippet": "entities established in an eligible country listed above, but which are directly or indirectly controlled by a non-eligible country or by a non-eligible country entity, shall not participate in the action"
+        },
+        {
+          "condition": "Financial and operational capacity",
+          "stated_in_call": true,
+          "applicant_appears_to_meet": "unclear",
+          "source_id": "HORIZON-CL3-2026-02-CS-ECCC-01",
+          "source_url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-01",
+          "snippet": "4. Financial and operational capacity and exclusion described in Annex C of the Work Programme General Annexes"
+        }
+      ],
+      "missing_info": [
+        "Proposal page limits and layout",
+        "Eligible countries list",
+        "Financial and operational capacity criteria"
+      ],
+      "_grounding": {
+        "dropped_fit": 0,
+        "dropped_eligibility": 0,
+        "warnings": []
+      }
+    }
+  ],
+  "evidence_projects": [
+    {
+      "source_id": "cordis-101091792",
+      "title": "Resilient manufacturing lines based on smart handling systems",
+      "source_url": "https://cordis.europa.eu/project/id/101091792",
+      "programme": "HORIZON",
+      "country": "BE, DE, EL, ES, LU, NL",
+      "score": 0.8425,
+      "chunk_text": "Resilient manufacturing lines based on smart handling systems. Manual and automated production lines must evolve to “produce more and diverse with less”, however they need to address shortcomings such as- high product variants requiring tool level dexterity and resource level reconfigurability- lack of cognitive perception systems to allow autonomous reasoning and operation- absence of adaptable control to accurately handle a variety of workpieces and materials, and - inefficiency of planning systems in addressing holistically all hierarchical production levels.SMARTHANDLE will research technologies to address these needs and support European industry, by implementing a) intelligent, reconfigurable agents to provide dexterity in a range of handling applications, b) AI based reasoning enablers to optimize the flexibility potential of these agents and c) Higher-level planning and coordination mechanism to allow the successful and scalable deployment of such solutions in real life use cases.SMARTHANDLE is a research and innovation action (RIA) nevertheless, it acknowledges that such technologies can be meaningful only if they lead to solutions that address real life needs. Thus it has engaged 3 use cases from the consumer goods (MENICON-handling of deformable, delicate and high precision parts: contact lenses), Metal Industries (ALUMIL- packaging of large variable section materials: aluminum profiles) and automotive tier-1 suppliers (ABEE- disassembly of complex products: batteries) involving dexterous operations that are not possible to implement with the existing technologies.SSH aspects will be addressed, demonstrating benefits for workers by reducing their involvement in unsafe and unhealthy tasks, improving their working conditions when working in areas where the SMARTHANDLE reconfigurable solutions will operate"
+    },
+    {
+      "source_id": "cordis-101294475",
+      "title": "A MULTI-AGENT SYSTEM FOR COGNITIVE & PHYSICAL AUGMENTATION IN MANUFACTURING",
+      "source_url": "https://cordis.europa.eu/project/id/101294475",
+      "programme": "HORIZON",
+      "country": "AT, DE, EL, IE, IT, LU, PT, SE",
+      "score": 0.836,
+      "chunk_text": "A MULTI-AGENT SYSTEM FOR COGNITIVE & PHYSICAL AUGMENTATION IN MANUFACTURING. MANUFACTOR will pioneer human-centric augmentation in advanced manufacturing by combining multi-modal sensing, AI-driven agents and human digital twins into an integrated platform. At its core is the OMNI-SENSE suite, fusing 3D shopfloor vision, wearable biosignal sensors, tactile and portable inspection tools, and gaze-tracking XR smart glasses, to create a GDPR-compliant, real-time view of operator posture, workload, cognitive state and task progress. Building on this, MANUFACTOR develops three augmentation layers: (i) ergonomics and load-balancing assistance to reduce strain and injuries; (ii) adaptive workstation control that dynamically aligns machines and processes with human capabilities; and (iii) FactoryGPT, a multi-modal large language model tailored to manufacturing, providing explainable, context-aware conversational guidance and training. Human digital twins continuously model workers’ physical and cognitive state, enabling proactive, safe and inclusive support.Solutions will first be tested and refined in two dedicated learning factories, ensuring robust evaluation under controlled yet realistic conditions. Matured components will then be validated in three complementary industrial pilots (Austria, Portugal, Sweden), covering distinct manufacturing domains. Co-design with workers, managers, trade unions and SSH experts ensures inclusiveness, trust, and ethical compliance with EU AI and safety frameworks.MANUFACTOR will deliver an interoperable multi-agent platform with explainability and business interfaces, a methodology to assess augmentation needs, and training modules for upskilling. Expected impacts include reduced physical and cognitive strain, improved safety and trust, faster onboarding, error reduction, higher efficiency, and more attractive manufacturing jobs, advancing the Industry 5.0 vision of resilient, human-centric European industry"
+    },
+    {
+      "source_id": "cordis-101189562",
+      "title": "enabling SMEs to develop AI and DATA solutions through support of a Community of Practice and low-TRL and high-TRL playgrounds",
+      "source_url": "https://cordis.europa.eu/project/id/101189562",
+      "programme": "HORIZON",
+      "country": "AT, BE, ES, FR, IE, LV, NL, PT, RO, SI, TR",
+      "score": 0.8341,
+      "chunk_text": "enabling SMEs to develop AI and DATA solutions through support of a Community of Practice and low-TRL and high-TRL playgrounds. AID4SME will facilitate SMEs in developing combined AI and data solutions for large scale resource optimisation challenges for industries that have significant impact on the objectives of the Green Deal. Minimum 20 SMEs, selected through 2 open calls, will receive FSTP to develop these solutions with the support of a Community of Practice (COP). The ambition is to create a COP that will continue after the project lifetime.AID4SME brings together 9 technology blocks and low-TRL playgrounds from 4 scientific partners, to educate and support the SMEs. Additionally, 4 large industry partners (from automotive, whitegoods, battery and energy sector) provide real-life large scale resource optimization challenges that require combined AI and data solutions, and high-TRL playgrounds to integrate and demonstrate the solutions.AID4SME offers an open platform that is flexible to bring in challenges from outside the consortium.AID4SME provides the infrastructure and learning environment that enable the SMEs to solve the challenges, demonstrate solutions and grow into impactful enterprises. The technology blocks cover a wide area of AI & data technologies for the full cycle of data collection, creation of insights, decision support and automation. These technologies have the potential to have significant impact on the Green Transition and boost EU competitiveness for industries. AID4SME will collaborate with the AI-on-Demand platform to enrich its repository with the AID4SME tools and framework, while it is open to deploy the tools/frameworks already available on the AI-on-Demand platform for new use cases. AID4SME will assess the impact of the developed technologies on Green Deal objectives and on social and human aspects. AID4SME brings along partners who are experienced in re-skilling and up-skilling of SMEs and applying standardization as enabler for exploitation. The wide geographical coverage, with partners and DIHs from all across Europe, ensures maximum impact"
+    }
+  ]
+}

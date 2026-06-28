@@ -11,6 +11,8 @@ data/*
 !data/gold/
 # but not its regenerable LLM-generation cache
 data/gold/faith_generated.json
+# ... and small illustrative samples + the cached demo shortlist (for the UI demo mode).
+!data/samples/
 
 # Reference clones (read-only, not part of this repo)
 reference/
