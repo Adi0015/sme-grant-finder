@@ -22,7 +22,12 @@ for relevant calls outside the labeled top-20. Stated in notes/results.md.
 from __future__ import annotations
 
 import json
+import os
 import re
+
+# Keep the ./mlruns file store working on MLflow >=3 (file backend is in maintenance mode
+# and otherwise raises). Set before mlflow is imported in main().
+os.environ.setdefault("MLFLOW_ALLOW_FILE_STORE", "true")
 
 import config
 from eval_retrieval import load_candidates, load_labels, _metrics_for_profile, KS

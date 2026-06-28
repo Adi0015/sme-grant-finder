@@ -1,0 +1,16 @@
+{
+  "n_claims": 54,
+  "code_grounding_pct": 0.9815,
+  "judge_supported_pct": 0.4444,
+  "judge_supported_or_partial_pct": 0.8519,
+  "judge_verdicts": {
+    "yes": 24,
+    "partial": 22,
+    "no": 8
+  },
+  "backend": "ollama:qwen2.5:7b",
+  "sample": {
+    "profiles": 4,
+    "top_n": 3
+  }
+}
