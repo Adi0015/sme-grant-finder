@@ -9,8 +9,9 @@ __pycache__/
 data/*
 # ... except the small, precious gold eval set (profiles + human labels + metrics).
 !data/gold/
-# but not its regenerable LLM-generation cache
+# but not its regenerable LLM-generation cache / transient logs
 data/gold/faith_generated.json
+data/gold/*.log
 # ... and small illustrative samples + the cached demo shortlist (for the UI demo mode).
 !data/samples/
 
