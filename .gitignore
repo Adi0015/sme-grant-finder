@@ -24,5 +24,11 @@ mlruns/
 # Secrets
 .env
 
+# Day-7 outreach material — PRIVATE, never publish (CV, email strategy, OSS drafts).
+PlushCV_RAISE.tex
+notes/oss_candidates.md
+notes/outreach_prep.md
+notes/email_inputs.md
+
 # macOS
 .DS_Store
