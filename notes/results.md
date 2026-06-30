@@ -1,11 +1,13 @@
 # RAISE — Day 5 evaluation results
 
-Honest numbers for the SME grant-finder. Retrieval quality against a **human-labeled**
-gold set, plus a two-layer faithfulness check on generated claims. See [[day5]] for the
-gate report, [[notes]] for design details.
+Honest numbers for the SME grant-finder. Retrieval quality against an **AI-drafted,
+human-reviewed** gold set, plus a two-layer faithfulness check on generated claims. See
+[[day5]] for the gate report, [[notes]] for design details.
 
-> **Status:** faithfulness = DONE. Retrieval metrics + config benchmark = **PENDING the
-> human labels** (`data/gold/labeled.csv`). Numbers below are filled as they land.
+> **Status:** all metrics computed. **Label provenance:** the relevance labels were
+> **drafted by an assistant and reviewed/accepted by the author** (`data/gold/labeled.csv`)
+> — not hand-labeled from scratch, and not auto-graded by the retrieval model itself.
+> Treat the retrieval numbers as **indicative**, not a clean-room gold standard.
 
 ## Setup
 
@@ -13,28 +15,49 @@ gate report, [[notes]] for design details.
   green energy, health-data, agri-tech, logistics, cybersecurity, fintech, space/EO,
   circular-economy, e-mobility. Per profile, the dense retriever's **top-20** calls form a
   frozen candidate pool (`data/gold/candidates.json`) → **200 candidate rows** to label.
-- **Labeling:** done by the human (me), 1 = plausible funding fit / 0 = not. Labels are
-  joined onto the frozen ranking after the fact — they never touch retrieval.
+- **Labeling:** 1 = plausible funding fit / 0 = not, **assistant-drafted then
+  human-reviewed** (42/200 judged relevant). Labels are joined onto the frozen ranking
+  after the fact — they never touch retrieval.
 - **Stack:** retrieval = `intfloat/multilingual-e5-base` + Chroma (cosine); generation +
   judge = `ollama:qwen2.5:7b` (local).
 
 ## Retrieval metrics (pool-relative)
 
-_PENDING `data/gold/labeled.csv` — run `venv-index/bin/python src/eval_retrieval.py`._
+Dense retriever (`multilingual-e5` + Chroma), `data/gold/labeled.csv`, 10 profiles:
 
-| profile | recall@5 | recall@10 | recall@20 | prec@5 | MRR |
-|---------|---------|----------|----------|--------|-----|
-| _(per-profile rows)_ | … | … | … | … | … |
-| **MEAN** | … | … | … | … | … |
+| profile | recall@5 | recall@10 | recall@20 | prec@5 | MRR | #rel |
+|---------|---------|----------|----------|--------|-----|------|
+| p01-ai-manufacturing | 1.000 | 1.000 | 1.000 | 0.200 | 1.000 | 1 |
+| p02-green-energy | 0.444 | 0.556 | 1.000 | 0.800 | 1.000 | 9 |
+| p03-health-data | 0.571 | 0.714 | 1.000 | 0.800 | 1.000 | 7 |
+| p04-agritech | 0.333 | 0.500 | 1.000 | 0.400 | 0.500 | 6 |
+| p05-logistics | 0.667 | 0.667 | 1.000 | 0.400 | 0.500 | 3 |
+| p06-cybersecurity-iot | 0.400 | 0.600 | 1.000 | 0.400 | 1.000 | 5 |
+| p07-fintech-regtech | 0.000 | 0.500 | 1.000 | 0.000 | 0.167 | 2 |
+| p08-space-eo | 0.667 | 1.000 | 1.000 | 0.400 | 0.500 | 3 |
+| p09-circular-economy | 0.750 | 1.000 | 1.000 | 0.600 | 0.500 | 4 |
+| p10-emobility | 0.500 | 0.500 | 1.000 | 0.200 | 0.500 | 2 |
+| **MEAN** | **0.533** | **0.704** | 1.000 | **0.420** | **0.667** | |
+
+Read: the first genuinely-relevant call usually ranks near the top (**MRR 0.67**), but the
+tail is noisy (**prec@5 0.42**) — pure dense retrieval drags cross-domain calls into the
+pool. recall@20 = 1.0 by construction (labels live inside the top-20). Weakest:
+p07-fintech (first hit at rank 6); strongest: p01/p02/p03/p06 (MRR 1.0).
 
 ## Config benchmark (re-rank of the dense top-20 pool)
 
-_PENDING labels — `venv-index/bin/python src/eval_benchmark.py` (logs to MLflow)._
+Logged to MLflow (`./mlruns`, experiment `raise-retrieval`):
 
 | config | recall@5 | recall@10 | prec@5 | MRR |
 |--------|---------|----------|--------|-----|
-| dense  | … | … | … | … |
-| hybrid (dense + BM25, RRF) | … | … | … | … |
+| dense  | 0.533 | 0.704 | 0.420 | 0.667 |
+| **hybrid (dense + BM25, RRF)** | 0.522 | **0.784** | 0.420 | **0.700** |
+
+**Defensible finding #2:** adding a lexical (BM25) signal and fusing with RRF lifts
+**recall@10 0.70 → 0.78** and **MRR 0.67 → 0.70** over dense-only — evidence that the
+compressed e5 score band (0.80–0.84, where great and mediocre matches barely separate) is
+sharpened by a hybrid re-rank, exactly the cbrkit MAC/FAC pattern. (recall@5 dips
+marginally; the gain is in the tail.)
 
 ## Faithfulness (DONE)
 
@@ -75,8 +98,10 @@ fabricated *fit* quotes that a fuzzy check had hidden — now dropped). The syst
 
 ## Honest limitations
 
-- **Small, single-labeler gold set** (10 profiles, 200 judgments, one annotator) — no
-  inter-annotator agreement; treat metrics as indicative, not publication-grade.
+- **Small, AI-drafted + single-reviewer gold set** (10 profiles, 200 judgments, labels
+  assistant-drafted then reviewed by one author) — no inter-annotator agreement, and the
+  draft step means the labels are not an independent human ground truth. Treat metrics as
+  indicative, not publication-grade. Hand-labeling from scratch is the upgrade path.
 - **Pool-relative recall:** labels live inside each profile's dense top-20, so the
   "relevant universe" is pool-internal. `recall@20 ≈ 1.0` by construction; **MRR /
   recall@5 / recall@10 (ranking quality) are the informative signals**, and the benchmark

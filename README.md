@@ -86,7 +86,8 @@ Honest numbers (see [`notes/results.md`](notes/results.md), eval code in `src/ev
 | Citation grounding (snippet is exact source substring) | **98.1%** (53/54; the 1 miss is a tokenizer artifact, not a fabrication) |
 | Faithfulness — LLM-judge supported (`yes`) | 44.4% |
 | Faithfulness — supported or partial | **85.2%** |
-| Retrieval recall@k / MRR | harness ready; gold-set labeling in progress |
+| Retrieval — dense (pool-relative) | MRR **0.67**, recall@10 **0.70**, prec@5 0.42 |
+| Retrieval — hybrid (BM25+dense, RRF) | MRR **0.70**, recall@10 **0.78** — beats dense in the tail |
 
 **Defensible finding:** grounding is real and restrained. An adversarial 21-agent audit of
 the generation output caught 5 fabricated *fit* quotes that a naive fuzzy check had hidden;
@@ -97,14 +98,16 @@ claim over an ungrounded one.
 ## Relation to RAISE (DFKI)
 
 Source-grounded RAG for non-expert SME enablement, the group's theme. It mirrors their
-stack: **ragold**-style human-labeled gold eval (relevance judged by a person, not an LLM),
+stack: a **ragold**-style relevance-judged gold eval (labels AI-drafted then human-reviewed,
+not auto-graded by the retrieval model itself),
 a forced-citation generation pattern (cf. **hivegent**), and a dense-vs-hybrid config
 benchmark logged to MLflow — a small step toward **experience-based / CBR-style config
 selection** (cf. **cbrkit**), picking the retriever per query type from logged outcomes.
 
 ## Limitations (honest)
 
-- **Small, single-labeler gold set** (10 profiles, 200 judgments) — indicative, not
+- **Small, AI-drafted + single-reviewer gold set** (10 profiles, 200 judgments; labels
+  drafted by an assistant, reviewed by the author) — indicative, not
   publication-grade; no inter-annotator agreement.
 - **English-dominant corpus** — the multilingual embedder is under-exercised here.
 - **Eligibility is not a legal verdict** — a drafting aid; always verify the call documents.
@@ -157,6 +160,6 @@ optional, reads `ANTHROPIC_API_KEY` from env — never committed). `OLLAMA_HOST`
 app.py                 thin Streamlit UI over pipeline.run()
 src/  config · schema · retrieve · generate · pipeline · llm · build_index · eval_*
 data/samples/          small sample corpora + cached demo shortlist (for demo mode)
-data/gold/             human-labeled eval set (profiles, candidates, metrics)
+data/gold/             eval set: profiles, candidates, AI-drafted+reviewed labels, metrics
 notes/                 results.md · writeup.md · scope.md · day*.md gate reports
 ```

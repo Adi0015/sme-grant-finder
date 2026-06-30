@@ -1,0 +1,93 @@
+{
+  "per_profile": {
+    "p01-ai-manufacturing": {
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "recall@20": 1.0,
+      "precision@5": 0.2,
+      "MRR": 1.0,
+      "n_relevant": 1
+    },
+    "p02-green-energy": {
+      "recall@5": 0.4444444444444444,
+      "recall@10": 0.5555555555555556,
+      "recall@20": 1.0,
+      "precision@5": 0.8,
+      "MRR": 1.0,
+      "n_relevant": 9
+    },
+    "p03-health-data": {
+      "recall@5": 0.5714285714285714,
+      "recall@10": 0.7142857142857143,
+      "recall@20": 1.0,
+      "precision@5": 0.8,
+      "MRR": 1.0,
+      "n_relevant": 7
+    },
+    "p04-agritech": {
+      "recall@5": 0.3333333333333333,
+      "recall@10": 0.5,
+      "recall@20": 1.0,
+      "precision@5": 0.4,
+      "MRR": 0.5,
+      "n_relevant": 6
+    },
+    "p05-logistics": {
+      "recall@5": 0.6666666666666666,
+      "recall@10": 0.6666666666666666,
+      "recall@20": 1.0,
+      "precision@5": 0.4,
+      "MRR": 0.5,
+      "n_relevant": 3
+    },
+    "p06-cybersecurity-iot": {
+      "recall@5": 0.4,
+      "recall@10": 0.6,
+      "recall@20": 1.0,
+      "precision@5": 0.4,
+      "MRR": 1.0,
+      "n_relevant": 5
+    },
+    "p07-fintech-regtech": {
+      "recall@5": 0.0,
+      "recall@10": 0.5,
+      "recall@20": 1.0,
+      "precision@5": 0.0,
+      "MRR": 0.16666666666666666,
+      "n_relevant": 2
+    },
+    "p08-space-eo": {
+      "recall@5": 0.6666666666666666,
+      "recall@10": 1.0,
+      "recall@20": 1.0,
+      "precision@5": 0.4,
+      "MRR": 0.5,
+      "n_relevant": 3
+    },
+    "p09-circular-economy": {
+      "recall@5": 0.75,
+      "recall@10": 1.0,
+      "recall@20": 1.0,
+      "precision@5": 0.6,
+      "MRR": 0.5,
+      "n_relevant": 4
+    },
+    "p10-emobility": {
+      "recall@5": 0.5,
+      "recall@10": 0.5,
+      "recall@20": 1.0,
+      "precision@5": 0.2,
+      "MRR": 0.5,
+      "n_relevant": 2
+    }
+  },
+  "mean": {
+    "recall@5": 0.5332539682539682,
+    "recall@10": 0.7036507936507936,
+    "recall@20": 1.0,
+    "precision@5": 0.42000000000000004,
+    "MRR": 0.6666666666666667
+  },
+  "skipped_no_relevant": [],
+  "n_evaluated": 10
+}
