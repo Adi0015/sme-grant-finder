@@ -1,0 +1,10 @@
+# Disable the source file-watcher: it walks sys.modules and trips transformers'
+# lazy imports of optional model modules (e.g. zoedepth -> torchvision), which we
+# don't install. We don't need hot-reload for a single-page app. Also keeps startup
+# quiet/fast.
+[server]
+fileWatcherType = "none"
+headless = true
+
+[browser]
+gatherUsageStats = false
