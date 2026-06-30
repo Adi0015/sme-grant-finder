@@ -8,6 +8,18 @@ two sides can never drift (e.g. embed passages with one prefix, query with anoth
 
 from __future__ import annotations
 
+import os
+
+# Set BEFORE torch / transformers / tokenizers import (config is imported by every
+# entry point, and load_model() imports them lazily later, so this runs first).
+# Guards the macOS "[Errno 1] Operation not permitted" (EPERM) class that hits when
+# HuggingFace tokenizers / OpenMP fork after threads already exist — which is exactly
+# what happens running the model inside Streamlit's ScriptRunner thread (the CLI works
+# because it's single-threaded; Streamlit isn't). setdefault so the user can override.
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")  # no fork-after-thread in tokenizers
+os.environ.setdefault("OMP_NUM_THREADS", "1")             # don't spawn an OpenMP pool
+os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")     # tolerate duplicate libomp on macOS
+
 from functools import lru_cache
 from pathlib import Path
 
@@ -91,9 +103,8 @@ LLM_BACKEND = "ollama"               # "ollama" | "anthropic"
 # subscription, so prefer a locally pulled model e.g. "qwen2.5:7b", "llama3.1:8b").
 # Host/model are env-overridable so a container can point at the host's Ollama
 # (e.g. OLLAMA_HOST=http://host.docker.internal:11434) without code changes.
-import os as _os
-OLLAMA_HOST = _os.environ.get("OLLAMA_HOST", "http://localhost:11434")
-OLLAMA_MODEL = _os.environ.get("OLLAMA_MODEL", "qwen2.5:7b")
+OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
+OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5:7b")
 
 # Anthropic (paid hosted API — requires ANTHROPIC_API_KEY in the environment).
 ANTHROPIC_MODEL = "claude-sonnet-4-6"
