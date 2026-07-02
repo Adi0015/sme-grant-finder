@@ -30,10 +30,10 @@ screenshot at `docs/screenshot.png`.)*
 
 ## The problem
 
-EU funding calls are numerous, dense, and written for experts. A small or medium company
-with a good project struggles to (a) **find** the few relevant open calls and (b) **judge**
-whether they're eligible, all without paying a consultant. RAISE turns a free-text project
-description into a ranked, **cited** shortlist so the SME can decide what to read in full.
+EU funding calls are dense and written for experts, and hundreds are open at any time. A
+small or medium company with a good project struggles to find the few relevant open calls,
+then judge whether it's eligible, without paying a consultant. RAISE turns a free-text
+project description into a ranked, cited shortlist so the SME can decide what to read in full.
 
 ## Architecture
 
@@ -50,16 +50,16 @@ flowchart LR
     G -.audited by.-> V[eval: recall@k / MRR<br/>faithfulness / MLflow]
 ```
 
-SME profile → **retrieve** (open calls + funded-project evidence) → **grounded generation**
-(fit + draft eligibility + citations) → **eval**. The UI is a thin shell over
+SME profile → retrieve (open calls + funded-project evidence) → grounded generation
+(fit + draft eligibility + citations) → eval. The UI is a thin shell over
 `pipeline.run()`.
 
 ## Data sources (open data)
 
 | Source | What | Count |
 |--------|------|-------|
-| **EU F&T Portal (SEDIA)** | live **open** funding calls | 449 calls → 1025 chunks |
-| **CORDIS** | past Horizon Europe **funded projects** (evidence) | 400 projects (392 SME-involved) → 457 chunks |
+| EU F&T Portal (SEDIA) | live open funding calls | 449 calls → 1025 chunks |
+| CORDIS | past Horizon Europe funded projects (evidence) | 400 projects (392 SME-involved) → 457 chunks |
 
 Both are public EU open data. Full call/project text is kept verbatim so claims can be cited
 back to source. (Large dumps are gitignored; small `data/samples/` ship with the repo.)
@@ -79,7 +79,7 @@ back to source. (Large dumps are gitignored; small `data/samples/` ship with the
 
 ## Results
 
-Honest numbers (see [`notes/results.md`](notes/results.md), eval code in `src/eval_*.py`):
+See [`notes/results.md`](notes/results.md); eval code in `src/eval_*.py`.
 
 | Metric | Value |
 |--------|-------|
@@ -89,23 +89,22 @@ Honest numbers (see [`notes/results.md`](notes/results.md), eval code in `src/ev
 | Retrieval — dense (pool-relative) | MRR **0.67**, recall@10 **0.70**, prec@5 0.42 |
 | Retrieval — hybrid (BM25+dense, RRF) | MRR **0.70**, recall@10 **0.78**, beats dense in the tail |
 
-**Defensible finding:** grounding holds up under attack. An adversarial 21-agent audit of
-the generation output caught 5 fabricated *fit* quotes that a naive fuzzy check had hidden.
-After switching to verbatim span re-derivation, ~100% of surviving citations are exact
-source text and **no fabricated eligibility condition survived**. The pipeline drops a
-claim rather than ship it ungrounded.
+Grounding holds up under attack. An adversarial 21-agent audit of the generation output
+caught 5 fabricated *fit* quotes that a naive fuzzy check had hidden. After switching to
+verbatim span re-derivation, ~100% of surviving citations are exact source text and no
+fabricated eligibility condition survived. The pipeline drops a claim rather than ship it
+ungrounded.
 
 ## Relation to RAISE (DFKI)
 
 Source-grounded RAG for non-expert SME enablement, the group's theme. It mirrors their
-stack: a **ragold**-style relevance-judged gold eval (labels AI-drafted then human-reviewed,
-not auto-graded by the retrieval model itself),
-a forced-citation generation pattern (cf. **hivegent**), and a dense-vs-hybrid config
-benchmark logged to MLflow. That benchmark is a small step toward **experience-based /
-CBR-style config selection** (cf. **cbrkit**): picking the retriever per query type from
-logged outcomes.
+stack: a ragold-style relevance-judged gold eval (labels AI-drafted then human-reviewed,
+not auto-graded by the retrieval model itself), a forced-citation generation pattern (cf.
+hivegent), and a dense-vs-hybrid config benchmark logged to MLflow. That benchmark is a
+small step toward experience-based / CBR-style config selection (cf. cbrkit): picking the
+retriever per query type from logged outcomes.
 
-## Limitations (honest)
+## Limitations
 
 - **Small, AI-drafted + single-reviewer gold set** (10 profiles, 200 judgments; an assistant
   drafted the labels, the author reviewed them): indicative, not publication-grade, with no
