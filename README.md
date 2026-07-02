@@ -4,7 +4,7 @@
 source-grounded fit summary, a draft eligibility snapshot, and clickable citations.**
 
 A retrieval-augmented system that helps non-expert SMEs find and pre-assess relevant EU
-funding calls — built to mirror the source-grounded-RAG-for-SME-enablement work of the
+funding calls. It mirrors the source-grounded-RAG-for-SME-enablement work of the
 **DFKI RAISE** group.
 
 ```
@@ -32,7 +32,7 @@ screenshot at `docs/screenshot.png`.)*
 
 EU funding calls are numerous, dense, and written for experts. A small or medium company
 with a good project struggles to (a) **find** the few relevant open calls and (b) **judge**
-whether they're eligible — without paying a consultant. RAISE turns a free-text project
+whether they're eligible, all without paying a consultant. RAISE turns a free-text project
 description into a ranked, **cited** shortlist so the SME can decide what to read in full.
 
 ## Architecture
@@ -66,16 +66,16 @@ back to source. (Large dumps are gitignored; small `data/samples/` ship with the
 
 ## Key design choices
 
-- **Multilingual embeddings** (`intfloat/multilingual-e5-base`) — SME text is often German,
-  call text spans EU languages. e5 task prefixes (`passage:`/`query:`) applied centrally.
-- **Chunk → call dedupe** — over-fetch chunks, keep each call's best-scoring chunk, rank
+- **Multilingual embeddings** (`intfloat/multilingual-e5-base`): SME text is often German,
+  and call text spans EU languages. e5 task prefixes (`passage:`/`query:`) applied in one place.
+- **Chunk → call dedupe**: over-fetch chunks, keep each call's best-scoring chunk, rank
   calls by it. One row per call.
-- **Code-enforced citation grounding** — the generator's snippets are not trusted as
-  written. Each is **re-derived to the verbatim source span** (longest contiguous match);
-  anything fabricated or stitched is dropped. No source → no claim.
-- **Eligibility is assistive, never a verdict** — per-condition assessment is
-  `yes` / `unclear` only (no hard "no"); unknowns go to a "to verify" list. The tool never
-  says "you are (not) eligible".
+- **Code-enforced citation grounding**: the generator's snippets don't get trusted as
+  written. The code re-derives each to the verbatim source span (longest contiguous match)
+  and drops anything fabricated or stitched. A claim without a source never ships.
+- **Eligibility is assistive, never a verdict**: per-condition assessment is
+  `yes` / `unclear` only (no hard "no"), and unknowns go to a "to verify" list. The tool
+  won't say "you are (not) eligible".
 
 ## Results
 
@@ -87,13 +87,13 @@ Honest numbers (see [`notes/results.md`](notes/results.md), eval code in `src/ev
 | Faithfulness — LLM-judge supported (`yes`) | 44.4% |
 | Faithfulness — supported or partial | **85.2%** |
 | Retrieval — dense (pool-relative) | MRR **0.67**, recall@10 **0.70**, prec@5 0.42 |
-| Retrieval — hybrid (BM25+dense, RRF) | MRR **0.70**, recall@10 **0.78** — beats dense in the tail |
+| Retrieval — hybrid (BM25+dense, RRF) | MRR **0.70**, recall@10 **0.78**, beats dense in the tail |
 
-**Defensible finding:** grounding is real and restrained. An adversarial 21-agent audit of
-the generation output caught 5 fabricated *fit* quotes that a naive fuzzy check had hidden;
-after switching to verbatim span re-derivation, ~100% of surviving citations are exact
-source text and **no fabricated eligibility condition survived**. The system prefers no
-claim over an ungrounded one.
+**Defensible finding:** grounding holds up under attack. An adversarial 21-agent audit of
+the generation output caught 5 fabricated *fit* quotes that a naive fuzzy check had hidden.
+After switching to verbatim span re-derivation, ~100% of surviving citations are exact
+source text and **no fabricated eligibility condition survived**. The pipeline drops a
+claim rather than ship it ungrounded.
 
 ## Relation to RAISE (DFKI)
 
@@ -101,18 +101,19 @@ Source-grounded RAG for non-expert SME enablement, the group's theme. It mirrors
 stack: a **ragold**-style relevance-judged gold eval (labels AI-drafted then human-reviewed,
 not auto-graded by the retrieval model itself),
 a forced-citation generation pattern (cf. **hivegent**), and a dense-vs-hybrid config
-benchmark logged to MLflow — a small step toward **experience-based / CBR-style config
-selection** (cf. **cbrkit**), picking the retriever per query type from logged outcomes.
+benchmark logged to MLflow. That benchmark is a small step toward **experience-based /
+CBR-style config selection** (cf. **cbrkit**): picking the retriever per query type from
+logged outcomes.
 
 ## Limitations (honest)
 
-- **Small, AI-drafted + single-reviewer gold set** (10 profiles, 200 judgments; labels
-  drafted by an assistant, reviewed by the author) — indicative, not
-  publication-grade; no inter-annotator agreement.
-- **English-dominant corpus** — the multilingual embedder is under-exercised here.
-- **Eligibility is not a legal verdict** — a drafting aid; always verify the call documents.
-- **Calls are a snapshot** — the open-call set changes; rebuild the index to refresh.
-- **Local 7B generator** fabricates ~half its fit quotes (then dropped) → some calls show
+- **Small, AI-drafted + single-reviewer gold set** (10 profiles, 200 judgments; an assistant
+  drafted the labels, the author reviewed them): indicative, not publication-grade, with no
+  inter-annotator agreement.
+- **English-dominant corpus**: it under-exercises the multilingual embedder.
+- **Eligibility is not a legal verdict**: treat it as a drafting aid and verify the call documents.
+- **Calls are a snapshot**: the open-call set changes, so rebuild the index to refresh.
+- **Local 7B generator** fabricates ~half its fit quotes (then dropped), so some calls show
   no fit citation. A stronger model is the obvious lever.
 
 ## Run it
@@ -151,7 +152,7 @@ docker run --rm -p 8501:8501 \
 ```
 
 **Config / secrets:** backend is `config.LLM_BACKEND` (`ollama` default; `anthropic`
-optional, reads `ANTHROPIC_API_KEY` from env — never committed). `OLLAMA_HOST` /
+optional, reads `ANTHROPIC_API_KEY` from env, never committed). `OLLAMA_HOST` /
 `OLLAMA_MODEL` are env-overridable.
 
 ## Repo layout
